@@ -3,7 +3,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use rand::Rng;
 
 use Sort::merge_sort::merge_sort;
-use Sort::heap_sort::heap_sort;
+// use Sort::heap_sort::heap_sort;
 use Sort::selection_sort::selection_sort;
 use Sort::bubble_sort::bubble_sort;
 
