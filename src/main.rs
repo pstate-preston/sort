@@ -1,7 +1,7 @@
-use Sort::merge_sort::merge_sort;
-use Sort::heap_sort::heap_sort;
-use Sort::selection_sort::selection_sort;
-use Sort::bubble_sort::bubble_sort;
+use sort::merge_sort::merge_sort;
+use sort::heap_sort::heap_sort;
+use sort::selection_sort::selection_sort;
+use sort::bubble_sort::bubble_sort;
 
 fn main() {
     let test = [17,15,26,13,9,6,5,5,5,5,10,4,8,3,1];

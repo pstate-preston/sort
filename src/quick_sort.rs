@@ -1,3 +1,11 @@
+pub fn partition<T: Copy + Ord>(data: &mut Vec<T>, start: usize, end: usize) {
+    let (mut i, mut j) = (start - 1, end + 1);
+    let pivot = data[end];
+    while i < j {
+
+    }
+}
+
 /// Time complexity is O(n log(n)) best case, O(n^2) worst case.
 /// # Parameters
 /// * data: &mut Vec<[T]> - a reference to vector containing numerical data.
