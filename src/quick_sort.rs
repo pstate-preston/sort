@@ -1,9 +1,28 @@
-pub fn partition<T: Copy + Ord>(data: &mut Vec<T>, start: usize, end: usize) {
-    let (mut i, mut j) = (start - 1, end + 1);
-    let pivot = data[end];
-    while i < j {
+// returns the index at which the pivot is found after partitioning.
+fn partition<T: Copy + Ord>(data: &mut Vec<T>,
+                            left: isize,
+                            right: isize) -> isize {
+    let mut index = left;
+    let pivot = data[right as usize];
 
+    for i in left..right {
+        if data[i as usize] < pivot {
+            data.swap(i as usize, index as usize);
+            index += 1;
+        }
     }
+    data.swap(index as usize, right as usize);
+    index
+}
+
+fn qs_utility<T: Copy + Ord>(data: &mut Vec<T>,
+                             left: isize,
+                             right: isize) {
+
+    if left >= right { return; }
+    let p = partition(data, left, right);
+    qs_utility(data, left, p-1);
+    qs_utility(data, p+1, right);
 }
 
 /// Time complexity is O(n log(n)) best case, O(n^2) worst case.
@@ -12,26 +31,9 @@ pub fn partition<T: Copy + Ord>(data: &mut Vec<T>, start: usize, end: usize) {
 /// # Returns
 /// * Vec<[T]> - the original parameter array, sorted in place.
 pub fn quick_sort<T: Copy + Ord>(data: &mut Vec<T>) {
-    let n = data.len();
-    let pivot = n - 1;
-    let (mut i, mut j) = (0, pivot-1);
-
-    while i < j {
-        if data[i] > data[pivot] && data[j] < data[pivot] {
-            data.swap(i, j);
-            i += 1;
-            j -= 1;
-        } else if data[i] > data[pivot] {
-            j -= 1;
-        } else {
-            i += 1;
-        }
+    if data.len() > 1 {
+        let n = data.len() as isize;
+        let (i, j) = (0, n-1);
+        qs_utility(data, i, j);
     }
-    // now, i and j have crossed over partition...
-    data.swap(i, pivot);
-    let mut left: Vec<T> = data[..pivot].to_vec();
-    let mut right: Vec<T> = data[pivot+1..].to_vec();
-
-    quick_sort(&mut left);
-    quick_sort(&mut right);
 }

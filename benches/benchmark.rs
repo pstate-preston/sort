@@ -3,6 +3,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use rand::Rng;
 
 use sort::merge_sort::merge_sort;
+use sort::quick_sort::quick_sort;
 use sort::heap_sort::heap_sort;
 use sort::selection_sort::selection_sort;
 use sort::bubble_sort::bubble_sort;
@@ -23,8 +24,9 @@ fn random_vector(length: i32) -> Vec<i32> {
 
 fn sort_benchmark(c: &mut Criterion){
     
-    let mut vector = random_vector(10000);
-    let test_inplace = &mut vector.clone();
+    let mut vector = random_vector(100000);
+    let heap_inplace = &mut vector.clone();
+    let quick_inplace = &mut vector.clone();
     let test: &[i32] = &mut vector;
     println!("\n\n\n\n");
 
@@ -35,9 +37,15 @@ fn sort_benchmark(c: &mut Criterion){
     );
 
     c.bench_function(
+        "Quick sort",
+        |b|
+            b.iter(|| quick_sort(black_box(quick_inplace)))
+    );
+
+    c.bench_function(
         "Heap sort",
         |b|
-            b.iter(|| heap_sort(black_box(test_inplace)))
+            b.iter(|| heap_sort(black_box(heap_inplace)))
     );
 
     c.bench_function(
