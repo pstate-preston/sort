@@ -16,15 +16,6 @@ pub fn selection_sort<T: Ord + Copy>(data: &[T]) -> Vec<T> {
             }
         }
         sorted.swap(min,i);
-        /*  OLD
-        let mut min = i;        
-        while j <= n {
-            if sorted[j] < sorted[min] {
-                min = j;
-            }
-            j += 1;
-        }
-        */
     }
     sorted
 }
